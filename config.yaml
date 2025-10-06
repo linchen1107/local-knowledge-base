@@ -1,0 +1,40 @@
+# LocalLM Configuration File
+
+# Ollama Settings
+ollama:
+  base_url: "http://localhost:11434"
+  model: "qwen3:latest"  # Default model - change this to set your preferred model
+                         # Examples: qwen3:latest, llama3, mistral, etc.
+                         # Run 'locallm models' to see available models
+                         # Or use --model flag: locallm chat --model llama3
+  temperature: 0.3  # Lower = more focused, Higher = more creative
+  timeout: 120  # Request timeout in seconds
+
+# Agent Settings
+agent:
+  max_iterations: 10  # Maximum reasoning steps
+  verbose: true  # Show detailed reasoning process
+
+# Document Processing
+documents:
+  supported_types:
+    - pdf
+    - docx
+    - doc
+    - txt
+    - md
+    - markdown
+  max_file_size_mb: 100  # Skip files larger than this
+  encoding: "utf-8"
+
+# Knowledge Map
+knowledge_map:
+  filename: "knowledge_map.yaml"
+  auto_rebuild: false  # Auto-rebuild map when documents change
+  description_max_tokens: 8000  # Max tokens to use for description generation
+
+# Display Settings
+display:
+  show_sources: true  # Show source citations in answers
+  show_tool_calls: true  # Show AI tool usage in real-time
+  color_scheme: "default"  # default, dark, light
