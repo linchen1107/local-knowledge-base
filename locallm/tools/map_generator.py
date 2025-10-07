@@ -4,11 +4,11 @@ import os
 import re
 import yaml
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional, Union
 import ollama
 
 
-def generate_knowledge_map(directory: str = ".", output_file: str = "knowledge_map.yaml", use_ai: bool = True, fast_mode: bool = False) -> str:
+def generate_knowledge_map(directory: Union[str, Path] = ".", output_file: str = "knowledge_map.yaml", use_ai: bool = True, fast_mode: bool = False) -> str:
     """Generate a knowledge map for all documents in directory.
 
     Args:
@@ -561,7 +561,7 @@ def _filter_invalid_concepts(concepts: List[str]) -> List[str]:
     return filtered
 
 
-def load_knowledge_map(directory: str = ".", map_file: str = "knowledge_map.yaml") -> Dict:
+def load_knowledge_map(directory: Union[str, Path] = ".", map_file: str = "knowledge_map.yaml") -> Optional[Dict]:
     """Load existing knowledge map from YAML file.
 
     Args:

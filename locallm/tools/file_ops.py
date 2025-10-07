@@ -3,7 +3,7 @@
 import os
 import re
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Union
 import fitz  # PyMuPDF
 from docx import Document
 
@@ -32,7 +32,7 @@ def tool(func):
 
 
 @tool
-def read_file(file_path: str) -> str:
+def read_file(file_path: Union[str, Path]) -> str:
     """Read complete document content from a file.
 
     Supports: PDF, Markdown (.md), Text (.txt), Word (.docx)
@@ -70,7 +70,7 @@ def read_file(file_path: str) -> str:
 
 def _read_pdf(file_path: Path) -> str:
     """Read PDF file using PyMuPDF"""
-    doc = fitz.open(file_path)
+    doc = fitz.open(str(file_path))
     content = []
 
     for page_num, page in enumerate(doc, 1):
@@ -83,7 +83,7 @@ def _read_pdf(file_path: Path) -> str:
 
 def _read_docx(file_path: Path) -> str:
     """Read Word document"""
-    doc = Document(file_path)
+    doc = Document(str(file_path))
     content = []
 
     for para in doc.paragraphs:
@@ -100,7 +100,7 @@ def _read_text(file_path: Path) -> str:
 
 
 @tool
-def grep(pattern: str, file_path: str, context_lines: int = 3) -> str:
+def grep(pattern: str, file_path: Union[str, Path], context_lines: int = 3) -> str:
     """Search for a pattern in a document and return matching lines with context.
 
     Args:
@@ -147,7 +147,7 @@ def grep(pattern: str, file_path: str, context_lines: int = 3) -> str:
 
 
 @tool
-def list_docs(directory: str = ".") -> str:
+def list_docs(directory: Union[str, Path] = ".") -> str:
     """List all documents in a directory and its subdirectories.
 
     Args:

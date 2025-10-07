@@ -13,8 +13,8 @@ if sys.platform == 'win32':
         import locale
         if sys.stdout.encoding.lower() not in ('utf-8', 'utf8'):
             # Try to set UTF-8 encoding
-            sys.stdout.reconfigure(encoding='utf-8')
-            sys.stderr.reconfigure(encoding='utf-8')
+            sys.stdout.reconfigure(encoding='utf-8')  # type: ignore
+            sys.stderr.reconfigure(encoding='utf-8')  # type: ignore
     except Exception:
         pass  # If reconfigure fails, continue anyway
 from rich.panel import Panel
@@ -567,8 +567,6 @@ def search(keyword, file):
             console.print(panel)
         else:
             # Search in all documents
-            from pathlib import Path
-
             supported_exts = {'.pdf', '.docx', '.doc', '.txt', '.md', '.markdown'}
             found_any = False
 
